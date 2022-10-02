@@ -11,24 +11,15 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/rgb.h>
 
-#define BASE  0
-#define SYM   1
-#define NAV   2
-#define NUM   3
-#define FUN   4
-#define MEDIA 5
-
-&lt {
-    quick_tap_ms = <200>;
-};
-
 &caps_word {
-    continue-list = <UNDERSCORE MINUS>;
+   continue-list = <LSHIFT UNDERSCORE MINUS BSPC>; 
 };
 
-&sl {
-    release-after-ms = <2000>;
-};
+#define BASE   0
+#define NUMPAD 1
+#define NAV_APP 2
+
+#define LOCKED 3
 
 / {
 
@@ -36,68 +27,139 @@
         zmk,matrix_transform = &five_column_transform;
     };
 
+ macros {
+    
+        lambda_arrow: lambda_arrow {
+            label = "lambda_arrow";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <&kp MINUS &kp GREATER_THAN>
+            ;
+        };
+        
+    };
+
+    //   ╔═════════════════════════════╗    ╔═════════════════════════════╗
+    //   ║  0  |  1  |  2  |  3  |  4  ║    ║  5  |  6  |  7  |  8  |  9  ║
+    //   ║ 10  | 11  | 12  | 13  | 14  ║    ║ 15  | 16  | 17  | 18  | 19  ║
+    //   ║ 20  | 21  | 22  | 23  | 24  ║    ║ 25  | 26  | 27  | 28  | 29  ║
+    //   ╚═══════════╗  30  | 31  | 32 ║    ║ 33  | 34  | 35 ╔════════════╝
+    //               ╚═════════════════╝    ╚════════════════╝
+    
     combos {
-        compatible = "zmk,combos";
-        combo_esc {
+        compatible = "zmk,combos"; 
+
+        tog_locked {
             timeout-ms = <50>;
-            key-positions = <0 1>;
-            bindings = <&lt MEDIA ESC>;
+            key-positions = <30 31 34 35>;
+	    layers = <BASE LOCKED>;
+            bindings = <&tog LOCKED>;
         };
-        combo_space {
-            timeout-ms = <50>;
-            key-positions = <1 2>;
-            bindings = <&lt NAV SPACE>;
-        };
-        combo_tab {
-            timeout-ms = <50>;
-            key-positions = <2 3>;
-            bindings = <&kp TAB>;
-        };
-        compo_return {
-            timeout-ms = <50>;
-            key-positions = <6 7>;
-            bindings = <&lt SYM RET>;
-        };
-        combo_backspace {
-            timeout-ms = <50>;
-            key-positions = <7 8>;
-            bindings = <&lt NUM BSPC>;
-        };
-        combo_delete {
-            timeout-ms = <50>;
-            key-positions = <8 9>;
-            bindings = <&lt FUN DEL>;
-        };
-        combo_sl_media {
-            timeout-ms = <50>;
-            key-positions = <28 29>;
-            bindings = <&sl MEDIA>;
-        };
-        combo_sl_nav {
-            timeout-ms = <50>;
-            key-positions = <27 28>;
-            bindings = <&sl NAV>;
-        };
-        combo_sl_sym {
-            timeout-ms = <50>;
-            key-positions = <22 23>;
-            bindings = <&sl SYM>;
-        };
-        combo_sl_num {
-            timeout-ms = <50>;
-            key-positions = <21 22>;
-            bindings = <&sl NUM>;
-        };
-        combo_sl_fun {
+	
+        tog_app_nav {
             timeout-ms = <50>;
             key-positions = <20 21>;
-            bindings = <&sl FUN>;
-        };
-        combo_capsWord {
+            bindings = <&tog NAV_APP>;
+        };	
+
+        bootloader {
             timeout-ms = <50>;
-            key-positions = <22 27>;
+            key-positions = <0 1 8 9>;
+            bindings = <&bootloader>;
+        };
+
+        tog_numpad {
+            timeout-ms = <50>;
+            key-positions = <23 24>;
+            bindings = <&tog NUMPAD>;
+        };
+
+        left_shift {
+            timeout-ms = <50>;
+            key-positions = <13 14>;
+            bindings = <&sk LSHIFT>;
+        };
+
+        right_shift {
+            timeout-ms = <50>;
+            key-positions = <15 16>;
+            bindings = <&sk LSHIFT>;
+        };
+ 
+        combo_lPar {
+            timeout-ms = <50>;
+            key-positions = <1 2>;
+            bindings = <&kp LPAR>;
+        };
+
+        combo_lBrace {
+            timeout-ms = <50>;
+            key-positions = <2 3>;
+            bindings = <&kp LEFT_BRACE>;
+        };
+
+        combo_arrow {
+            timeout-ms = <50>;
+            key-positions = <3 4>;
+            bindings = <&lambda_arrow>;
+        };
+
+        combo_rBrace {
+            timeout-ms = <50>;
+            key-positions = <6 7>;
+            bindings = <&kp RIGHT_BRACE>;
+        };
+	
+        combo_rPar {
+            timeout-ms = <50>;
+            key-positions = <7 8>;
+            bindings = <&kp RPAR>;
+        };
+
+        combo_del {
+            timeout-ms = <50>;
+            key-positions = <8 9>;
+            bindings = <&kp DEL>;
+        };
+
+        combo_tab {
+            timeout-ms = <50>;
+            key-positions = <11 12>;
+            bindings = <&kp TAB>;
+        };
+	
+	combo_esc {
+            timeout-ms = <50>;
+            key-positions = <12 13>;
+            bindings = <&kp ESC>;
+        };
+	
+        combo_enter {
+            timeout-ms = <50>;
+            key-positions = <16 17>;
+            bindings = <&kp RET>;
+        };
+ 
+        combo_ctrl_backspace {
+            timeout-ms = <50>;
+            key-positions = <16 17 18>;
+            bindings = <&kp LC(BSPC)>;
+        };
+
+        combo_backspace {
+            timeout-ms = <50>;
+            key-positions = <17 18>;
+            bindings = <&kp BSPC>;
+        };
+	
+	combo_caps_word {
+            timeout-ms = <50>;
+            key-positions = <13 16>;
             bindings = <&caps_word>;
         };
+	
     };
 
     behaviors {
@@ -163,74 +225,90 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
     };
-
+         
+    behaviors {        
+		hm_shift: homerow_mods {
+			compatible = "zmk,behavior-hold-tap";
+			label = "HOMEROW_MODS";
+			#binding-cells = <2>;
+			tapping_term_ms = <125>;
+			quick_tap_ms = <200>;
+			global-quick-tap;
+			flavor = "tap-preferred";
+			bindings = <&kp>, <&kp>;
+		};
+		
+		hm_gui: homerow_mods {
+			compatible = "zmk,behavior-hold-tap";
+			label = "HOMEROW_MODS";
+			#binding-cells = <2>;
+			tapping_term_ms = <175>;
+			quick_tap_ms = <200>;
+			global-quick-tap;
+			flavor = "tap-preferred";
+			bindings = <&kp>, <&kp>;
+		};
+		
+		gqt: global-quick-tap {
+		    compatible = "zmk,behavior-hold-tap";
+		    label = "GLOBAL_QUICK_TAP";
+		    #binding-cells = <2>;
+		    flavor = "tap-preferred";
+		    tapping-term-ms = <175>;
+		    quick-tap-ms = <125>;
+		    global-quick-tap;
+		    retro-tap;
+		    bindings = <&kp>, <&kp>;
+		};
+		
+    };
+    
     keymap {
         compatible = "zmk,keymap";
-        
-        base_layer {
-            label= "BASE"                              ;
+
+        BASE {
+            label = "Base";
             bindings = <
-                &kp Q         &kp W         &kp F         &kp P         &kp B         &kp J         &kp L         &kp U         &kp Y         &kp QUOT
-                &hm LGUI A    &hm LALT R    &hm LCTRL S   &hs LSHFT T   &kp G         &kp M         &hs RSHFT N   &hm RCTRL E   &hm LALT I    &hm LGUI O
-                &kp Z         &hm RALT X    &kp C         &kp D         &kp V         &kp K         &kp H         &kp COMMA     &hm RALT DOT  &kp SLASH
-                                            &lt MEDIA ESC &lt NAV SPACE &kp TAB       &lt SYM RET   &lt NUM BSPC  &lt FUN DEL
+                &kp Q           &kp F        &kp C         &kp K               &kp X             &kp SPC  &kp W                &kp O         &kp U        &kp Z
+                &hm_gui LGUI R  &gqt LALT S  &gqt LCTRL T  &hm_shift LSHIFT H  &kp D             &kp V    &hm_shift LSHIFT N   &gqt LCTRL A  &gqt LALT I  &hm_gui LGUI L 
+                &kp Y           &kp B        &kp G         &kp P               &kp COMMA         &kp SPC  &kp M                &kp DOT       &kp J        &kp SEMI
+                               &none  &kp SPACE                   &kp E  &none  
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-        sym_layer {
-            label= "SYM";
+        NUMPAD {
+            label = "Numpad";
             bindings = <
-                &kp LBRC      &kp AMPS      &kp ASTRK     &kp LPAR      &kp RBRC      &none         &none         &none         &none         &none
-                &kp COLON     &kp DLLR      &kp PRCT      &kp CRRT      &kp PLUS      &none         &kp RSHFT     &kp RCTRL     &kp LALT      &kp LGUI
-                &kp TILDE     &kp EXCL      &kp AT        &kp HASH      &kp PIPE      &none         &none         &none         &kp RALT      &none
-                                            &kp LPAR      &kp RPAR      &kp UNDER     &none         &none         &none
-             >;
-             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
-        };
-
-        nav_layer {
-            label= "NAV";
-            bindings = <
-                &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
-                &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHFT     &none         &none         &kp LEFT      &kp DOWN      &kp UP        &kp RIGHT
-                &none         &kp RALT      &none         &none         &none         &none         &kp HOME      &kp PG_DN     &kp PG_UP     &kp END
-                                            &none         &none         &none         &kp RET       &kp BSPC      &kp DEL
+                &none  &kp N9  &kp N8  &kp N7  &kp BSPC                &none &none &none &none &none  
+                &kp N0  &kp N3  &kp N2  &kp N1  &kp RET                &none &none &none &none &none     
+                &none  &kp N6  &kp N5  &kp N4  &kp COMMA               &none &none &none &none &none    
+                               &none  &to BASE            &kp E  &reset  
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-        num_layer {
-            label= "NUM";
+        NAV_APP {
+            label = "Nav App";
             bindings = <
-                &kp LBKT      &kp N7        &kp N8        &kp N9        &kp RBKT      &none         &none         &none         &none         &none
-                &kp SEMI      &kp N4        &kp N5        &kp N6        &kp EQUAL     &none         &kp RSHFT     &kp RCTRL     &kp LALT      &kp LGUI
-                &kp GRAVE     &kp N1        &kp N2        &kp N3        &kp BSLH      &none         &none         &none         &kp RALT      &none
-                                            &kp DOT       &kp N0        &kp MINUS     &none         &none         &none
+                &none  &none  &none            &none        &none                &none &none &none &none &none  
+                &none  &none  &kp LA(LS(ESC))  &kp LA(ESC)  &none                &none &none &none &none &none   
+                &none  &none  &none            &none        &none                &none &none &none &none &none    
+                               &none  &to BASE            &none  &none  
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-        fun_layer {
-            label= "FUN";
+        LOCKED {
+            label = "LOCKED";
             bindings = <
-                &kp F12       &kp F7        &kp F8        &kp F9        &kp PSCRN     &none         &none         &none         &none         &bootloader
-                &kp F11       &kp F4        &kp F5        &kp F6        &kp SLCK      &none         &kp RSHFT     &kp RCTRL     &kp LALT      &kp LGUI
-                &kp F10       &kp F1        &kp F2        &kp F3        &kp PAUSE_BREAK &none       &none         &none         &kp RALT      &none
-                                            &kp K_APP     &kp SPACE     &kp TAB       &none         &none         &none
+                &none  &none  &none  &none  &none                &none &none &none &none &none  
+                &none  &none  &none  &none  &none                &none &none &none &none &none     
+                &none  &none  &none  &none  &none               &none &none &none &none &none    
+                               &none  &none            &none  &none  
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-        media_layer {
-            label= "MEDIA";
-            bindings = <
-                &bootloader    &none        &none         &none         &none         &rgb_ug RGB_TOG &u_rgb_eff  &u_rgb_hui    &u_rgb_sai    &u_rgb_bri
-                &kp LGUI       &kp LALT     &kp LCTRL     &kp LSHFT     &none         &u_ep_tog     &kp C_PREV    &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT
-                &none          &kp RALT     &none         &none         &none         &out OUT_TOG  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3
-                                            &none         &none         &none         &kp C_STOP    &kp C_PP      &kp C_MUTE
-            >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
-        };
     };
 };
