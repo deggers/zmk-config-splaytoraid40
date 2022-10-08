@@ -206,7 +206,7 @@
         BASE {
             label = "Base";
             bindings = <
-                &kp Q           &kp F        &kp C         &kp K               &kp X             &kp SPC  &kp W                &kp O         &kp U        &kp Z
+                &kp Q           &kp F        &kp C         &kp K               &kp X             &kp SQT  &kp W                &kp O         &kp U        &kp Z
                 &hm_gui LGUI R  &gqt LALT S  &gqt LCTRL T  &hm_shift LSHIFT H  &kp D             &kp V    &hm_shift LSHIFT N   &gqt LCTRL A  &gqt LALT I  &hm_gui LGUI L 
                 &kp Y           &kp B        &kp G         &kp P               &kp COMMA         &kp SPC  &kp M                &kp DOT       &kp J        &kp SEMI
                               &none &none  &kp SPACE                   &kp E  &none  &none
