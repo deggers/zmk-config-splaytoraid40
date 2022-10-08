@@ -162,70 +162,7 @@
 	
     };
 
-    behaviors {
-        hm: home-row-mods {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOME_ROW_MODS";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <175>;
-            quick-tap-ms = <125>;
-            global-quick-tap;
-            bindings = <&kp>, <&kp>;
-        };
-
-        hs: home-row-shift {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOME_ROW_SHIFT";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <175>;
-            // quick-tap-ms = <125>;
-            // global-quick-tap;
-            bindings = <&kp>, <&kp>;
-        };
-
-        u_rgb_eff: u_rgb_eff {
-            compatible = "zmk,behavior-mod-morph";
-            label = "U_RGB_EFF";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_EFF>, <&rgb_ug RGB_EFR>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        u_rgb_hui: u_rgb_hui {
-            compatible = "zmk,behavior-mod-morph";
-            label = "U_RGB_HUI";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_HUI>, <&rgb_ug RGB_HUD>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        u_rgb_sai: u_rgb_sai {
-            compatible = "zmk,behavior-mod-morph";
-            label = "U_RGB_SAI";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_SAI>, <&rgb_ug RGB_SAD>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        u_rgb_bri: u_rgb_bri {
-            compatible = "zmk,behavior-mod-morph";
-            label = "U_RGB_BRI";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        u_ep_tog: u_ep_tog {
-            compatible = "zmk,behavior-mod-morph";
-            label = "U_EP_TOG";
-            #binding-cells = <0>;
-            bindings = <&ext_power EP_TOG>, <&ext_power EP_OFF>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-    };
-         
+     
     behaviors {        
 		hm_shift: homerow_mods {
 			compatible = "zmk,behavior-hold-tap";
